@@ -15,6 +15,7 @@ import {
 import { ApartmentModule } from '../apartments';
 import { RoomModule } from '../rooms';
 import { BullModule } from '@nestjs/bull';
+import { OrderProcessor } from './order.processor';
 
 @Module({
   controllers: [OrderController],
@@ -22,6 +23,7 @@ import { BullModule } from '@nestjs/bull';
   providers: [
     OrderRepo,
     OrderService,
+    OrderProcessor,
     OrderRoomInterceptor,
     OrderSubmittedInterceptor,
     OrderEditableInterceptor,

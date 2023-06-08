@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { OrderRepo } from '../order.repo';
 import { Apartment } from '../../apartments';
 import { Order, OrderStatus, PaymentMethod } from '../models';
-import { Room, RoomService } from '../../rooms';
+import { Room } from '../../rooms';
 import moment from 'moment';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -22,11 +22,7 @@ const LIMIT_ORDER = 10;
 
 @Injectable()
 export class OrderSubmittedInterceptor implements NestInterceptor {
-  constructor(
-    private orderRepo: OrderRepo,
-    @InjectQueue('order') private orderQueue: Queue,
-    private roomService: RoomService,
-  ) {}
+  constructor(private orderRepo: OrderRepo, @InjectQueue('order') private orderQueue: Queue) {}
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const req = context.switchToHttp().getRequest<Request>();
@@ -36,11 +32,16 @@ export class OrderSubmittedInterceptor implements NestInterceptor {
     const room = plainToInstance(Room, req.room);
     const apartment = plainToInstance(Apartment, req.apartment);
 
-    const lastOneDay = moment().subtract(1, 'days').toDate();
     const [maxOrder, lastOrders] = await Promise.all([
       this.orderRepo.findOne({ condition: {}, sort: { sequence: 'desc' } }),
       this.orderRepo.find({
-        condition: { userId: payload.sub, type: orderInput.type, createdAt: { $gte: lastOneDay } },
+        condition: {
+          userId: payload.sub,
+          type: orderInput.type,
+          createdAt: {
+            $gte: moment().subtract(1, 'days').toDate(),
+          },
+        },
         sort: { sequence: 'desc' },
       }),
     ]);

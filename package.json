@@ -5,10 +5,10 @@
   "private": true,
   "license": "MIT",
   "author": "Bao Tran",
-  "homepage": "https://gitlab.com/lost-n-found/lostnfound-api.git",
+  "homepage": "https://github.com/trangiabao1203/apartment-booking-system.git",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/lost-n-found/lostnfound-api.git"
+    "url": "https://github.com/trangiabao1203/apartment-booking-system.git"
   },
   "engines": {
     "node": ">=14"

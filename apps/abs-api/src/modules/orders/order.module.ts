@@ -4,20 +4,21 @@ import { OrderRepo } from './order.repo';
 import { OrderService } from './order.service';
 import {
   OrderCancelInterceptor,
-  OrderConfirmInterceptor,
-  OrderCheckoutInterceptor,
-  OrderEditableInterceptor,
   OrderCheckinInterceptor,
+  OrderCheckoutInterceptor,
+  OrderConfirmInterceptor,
+  OrderEditableInterceptor,
   OrderRejectInterceptor,
   OrderRoomInterceptor,
   OrderSubmittedInterceptor,
 } from './hooks';
 import { ApartmentModule } from '../apartments';
 import { RoomModule } from '../rooms';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   controllers: [OrderController],
-  imports: [ApartmentModule, RoomModule],
+  imports: [BullModule.registerQueue({ name: 'order' }), ApartmentModule, RoomModule],
   providers: [
     OrderRepo,
     OrderService,

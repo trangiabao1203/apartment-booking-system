@@ -39,6 +39,8 @@
     "@joktec/http": "^0.0.62",
     "@joktec/mongo": "^0.0.81",
     "@joktec/storage": "^0.0.63",
+    "@nestjs/bull": "^0.6.3",
+    "bull": "^4.10.4",
     "dot-object": "^2.1.4",
     "gravatar": "^1.8.2",
     "lodash": "^4.17.21",

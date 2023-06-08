@@ -2,17 +2,21 @@ import {
   APP_FILTER,
   APP_GUARD,
   APP_INTERCEPTOR,
+  ConfigModule,
+  ConfigService,
   CoreModule,
   JwtModule,
   MiddlewareConsumer,
   Module,
   NestModule,
   ResponseInterceptor,
+  toInt,
   TrackInterceptor,
 } from '@joktec/core';
 import { MongoModule } from '@joktec/mongo';
 import { StorageModule } from '@joktec/storage';
 import { HttpModule } from '@joktec/http';
+import { BullModule } from '@nestjs/bull';
 import { AuthMiddleware, HttpExceptionFilter, RoleGuard } from './base';
 import { OtpModule } from './modules/otpLogs';
 import { SessionController, SessionModule } from './modules/sessions';
@@ -33,6 +37,21 @@ import { RoomController, RoomModule } from './modules/rooms';
     StorageModule,
     HttpModule,
     JwtModule,
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (cfg: ConfigService) => {
+        const { host, port, queue, password } = cfg.get<any>('bull') ?? {};
+        return {
+          name: queue?.join(','),
+          redis: {
+            host: host || 'localhost',
+            port: toInt(port, 6379),
+            password,
+          },
+        };
+      },
+    }),
     // Modules
     OtpModule,
     SessionModule,

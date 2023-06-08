@@ -7,6 +7,11 @@ log:
   level: debug
   useFilter: true
 
+bull:
+  host: localhost
+  port: 6379
+  queue: [order]
+
 misc:
   cdnUrl: http://127.0.0.1:9000/apartment
 

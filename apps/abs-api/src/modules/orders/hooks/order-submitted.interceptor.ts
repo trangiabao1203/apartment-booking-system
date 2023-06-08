@@ -13,14 +13,20 @@ import { Observable } from 'rxjs';
 import { OrderRepo } from '../order.repo';
 import { Apartment } from '../../apartments';
 import { Order, OrderStatus, PaymentMethod } from '../models';
-import { Room } from '../../rooms';
+import { Room, RoomService } from '../../rooms';
 import moment from 'moment';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
 const LIMIT_ORDER = 10;
 
 @Injectable()
 export class OrderSubmittedInterceptor implements NestInterceptor {
-  constructor(private orderRepo: OrderRepo) {}
+  constructor(
+    private orderRepo: OrderRepo,
+    @InjectQueue('order') private orderQueue: Queue,
+    private roomService: RoomService,
+  ) {}
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const req = context.switchToHttp().getRequest<Request>();

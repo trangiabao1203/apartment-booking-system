@@ -32,6 +32,8 @@
     "dep:upgrade": "lerna run dep:upgrade && yarn",
     "graph": "nx affected:graph",
     "release": "lerna version",
+    "seed": "lerna run seed",
+    "seed:refresh": "lerna run seed:refresh",
     "publish:dev": "lerna publish patch --exact --no-private --yes",
     "publish:stag": "lerna publish minor --exact --no-private --yes",
     "publish:prod": "lerna publish major --exact --no-private --yes",

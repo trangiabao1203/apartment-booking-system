@@ -1,12 +1,12 @@
 import { BaseService, IBaseRequest, Injectable, JwtPayload } from '@joktec/core';
 import { mongoose } from '@joktec/mongo';
-import { Apartment } from './models';
-import { ApartmentRepo } from './apartment.repo';
+import { Room, RoomStatus } from './models';
+import { RoomRepo } from './room.repo';
 
 @Injectable()
-export class ApartmentService extends BaseService<Apartment, string> {
-  constructor(protected apartmentRepo: ApartmentRepo) {
-    super(apartmentRepo);
+export class RoomService extends BaseService<Room, string> {
+  constructor(protected roomRepo: RoomRepo) {
+    super(roomRepo);
   }
 
   /**
@@ -15,10 +15,25 @@ export class ApartmentService extends BaseService<Apartment, string> {
    * @param req
    * @param payload
    */
-  async findOne(id: string, req?: IBaseRequest<Apartment>, payload?: JwtPayload): Promise<Apartment> {
+  async findOne(id: string, req?: IBaseRequest<Room>, payload?: JwtPayload): Promise<Room> {
     const findKey = mongoose.Types.ObjectId.isValid(id) ? 'id' : 'code';
     const findValue = findKey === 'code' ? id.toUpperCase() : id;
     req.condition = { [findKey]: findValue };
-    return this.apartmentRepo.findOne(req);
+    return this.roomRepo.findOne(req);
+  }
+
+  async lockRoom(id: string): Promise<Room> {
+    const condition = { id };
+    return this.roomRepo.update(condition, { status: RoomStatus.PENDING });
+  }
+
+  async useRoom(id: string): Promise<Room> {
+    const condition = { id };
+    return this.roomRepo.update(condition, { status: RoomStatus.IN_STOCK });
+  }
+
+  async releaseRoom(id: string): Promise<Room> {
+    const condition = { id };
+    return this.roomRepo.update(condition, { status: RoomStatus.ACTIVATED });
   }
 }

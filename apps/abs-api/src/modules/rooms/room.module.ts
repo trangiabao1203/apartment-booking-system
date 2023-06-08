@@ -1,12 +1,12 @@
 import { Module } from '@joktec/core';
-import { ApartmentController } from './apartment.controller';
-import { ApartmentRepo } from './apartment.repo';
-import { ApartmentService } from './apartment.service';
-import { ApartmentInterceptor } from './hooks';
+import { RoomController } from './room.controller';
+import { RoomRepo } from './room.repo';
+import { RoomService } from './room.service';
+import { RoomInterceptor } from './hooks';
 
 @Module({
-  controllers: [ApartmentController],
-  providers: [ApartmentRepo, ApartmentService, ApartmentInterceptor],
-  exports: [ApartmentRepo, ApartmentService],
+  controllers: [RoomController],
+  providers: [RoomRepo, RoomService, RoomInterceptor],
+  exports: [RoomRepo, RoomService],
 })
-export class ApartmentModule {}
+export class RoomModule {}

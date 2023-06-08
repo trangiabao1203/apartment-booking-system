@@ -1,20 +1,19 @@
 import { BaseController, Controller, IBaseControllerProps } from '@joktec/core';
-import { ApartmentService } from './apartment.service';
-import { Apartment } from './models';
-import { ApartmentInterceptor } from './hooks';
+import { RoomService } from './room.service';
+import { Room } from './models';
+import { RoomInterceptor } from './hooks';
 
-const props: IBaseControllerProps<Apartment> = {
-  dto: Apartment,
+const props: IBaseControllerProps<Room> = {
+  dto: Room,
   hooks: {
-    create: [ApartmentInterceptor],
-    update: [ApartmentInterceptor],
-    delete: [ApartmentInterceptor],
+    create: [RoomInterceptor],
+    update: [RoomInterceptor],
   },
 };
 
-@Controller('apartments')
-export class ApartmentController extends BaseController<Apartment, string>(props) {
-  constructor(protected apartmentService: ApartmentService) {
-    super(apartmentService);
+@Controller('rooms')
+export class RoomController extends BaseController<Room, string>(props) {
+  constructor(protected roomService: RoomService) {
+    super(roomService);
   }
 }

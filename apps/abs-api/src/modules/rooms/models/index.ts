@@ -1,2 +1,2 @@
-export * from './apartment';
-export * from './apartment.enum';
+export * from './room';
+export * from './room.enum';

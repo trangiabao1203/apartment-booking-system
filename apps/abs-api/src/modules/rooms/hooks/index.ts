@@ -1,1 +1,1 @@
-export * from './apartment.interceptor';
+export * from './room.interceptor';

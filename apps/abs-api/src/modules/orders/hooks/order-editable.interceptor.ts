@@ -1,20 +1,28 @@
 import { BadRequestException, CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@joktec/core';
 import { Observable } from 'rxjs';
-import { OrderRepo } from '../order.repo';
 import { OrderStatus } from '../models';
+import moment from 'moment';
+import { OrderService } from '../order.service';
 
 @Injectable()
-export class OrderInterceptor implements NestInterceptor {
-  constructor(private orderRepo: OrderRepo) {}
+export class OrderEditableInterceptor implements NestInterceptor {
+  constructor(private orderService: OrderService) {}
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const req = context.switchToHttp().getRequest();
 
-    if (req.method === 'PUT') {
-      const order = await this.orderRepo.findOne({ condition: { id: req.params.id } });
-      if (order?.status !== OrderStatus.PENDING) {
-        throw new BadRequestException('CAN_NOT_UPDATE_ORDER');
-      }
+    const order = await this.orderService.findOne(req.params.id);
+    if (!order) return next.handle();
+
+    const now = moment().startOf('second');
+    const [startTime] = order.bookingTime;
+
+    const allowUpdate: boolean =
+      (order.status === OrderStatus.PENDING || order.status === OrderStatus.CONFIRMED) &&
+      moment(startTime).isSameOrAfter(now, 'second');
+
+    if (!allowUpdate) {
+      throw new BadRequestException('CANNOT_UPDATE_ORDER');
     }
 
     return next.handle();

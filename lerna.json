@@ -1,0 +1,49 @@
+{
+  "packages": [
+    "packages/*",
+    "apps/*"
+  ],
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "**/*.md",
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/k8s/**",
+        "**/docker-compose*",
+        "**/Makefile*"
+      ],
+      "message": "ci(release): publish",
+      "registry": "https://registry.npmjs.org/",
+      "conventionalCommits": true,
+      "version": {
+        "allowBranch": [
+          "main",
+          "master",
+          "staging",
+          "develop",
+          "hotfix/*"
+        ]
+      }
+    },
+    "bootstrap": {
+      "ignore": "component-*",
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
+    }
+  },
+  "version": "independent",
+  "useWorkspaces": true,
+  "npmClient": "yarn",
+  "useNx": true,
+  "lerna-dockerize": {
+    "logLevel": "info",
+    "templateDockerfileName": "./docker/Dockerfile.template",
+    "baseDockerfileName": "./docker/Dockerfile.base",
+    "finalStage": false,
+    "packageManager": "npm",
+    "hoist": true,
+    "addPrepareStages": true
+  }
+}

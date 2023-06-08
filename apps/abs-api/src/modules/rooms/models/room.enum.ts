@@ -1,10 +1,12 @@
-export enum ApartmentType {
-  HOTEL = 'hotel',
-  DUPLEX = 'duplex',
-  VILLA = 'villa',
+export enum RoomType {
+  PERSONAL = 'personal',
+  TEAM = 'team',
+  COMPANY = 'company',
 }
 
-export enum ApartmentStatus {
+export enum RoomStatus {
   ACTIVATED = 'activated',
+  PENDING = 'pending',
+  IN_STOCK = 'in_stock',
   DISABLED = 'disabled',
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@joktec/core';
 import { MongoRepo, MongoService } from '@joktec/mongo';
-import { Apartment } from './models';
+import { Room } from './models';
 
 @Injectable()
-export class ApartmentRepo extends MongoRepo<Apartment, string> {
+export class RoomRepo extends MongoRepo<Room, string> {
   constructor(protected mongoService: MongoService) {
-    super(mongoService, Apartment);
+    super(mongoService, Room);
   }
 }

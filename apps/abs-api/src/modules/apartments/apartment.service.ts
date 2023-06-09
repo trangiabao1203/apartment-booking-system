@@ -15,7 +15,7 @@ export class ApartmentService extends BaseService<Apartment, string> {
    * @param req
    * @param payload
    */
-  async findOne(id: string, req?: IBaseRequest<Apartment>, payload?: JwtPayload): Promise<Apartment> {
+  async findOne(id: string, req: IBaseRequest<Apartment> = {}, payload?: JwtPayload): Promise<Apartment> {
     const findKey = mongoose.Types.ObjectId.isValid(id) ? 'id' : 'code';
     const findValue = findKey === 'code' ? id.toUpperCase() : id;
     req.condition = { [findKey]: findValue };

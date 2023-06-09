@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  mongo:
+    container_name: joktec-mongo
+    image: mongo:4.4.18
+    env_file: docker.env
+    ports:
+      - '27017:27017'
+    volumes:
+      - .docker/mongo/data:/data/db
+      - .docker/mongo/backup:/data/backup
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER_ROOT}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS_ROOT}
+      MONGO_INITDB_DATABASE: ${DB_SAMPLE_DATABASE}
+      MONGODB_USER: ${DB_USER}
+      MONGODB_PASS: ${DB_PASS}
+      MONGODB_DATABASE: ${DB_SAMPLE_DATABASE}
+    networks:
+      - joktec-network
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo db:27017/speech-api --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    container_name: joktec-redis
+    image: redis:6.0.5
+    ports:
+      - '6379:6379'
+    volumes:
+      - .docker/redis/data:/data
+      - .docker/redis/config/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - joktec-network
+    restart: always
+    healthcheck:
+      test: redis-cli ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  minio:
+    container_name: joktec-minio
+    image: minio/minio
+    env_file: docker.env
+    volumes:
+      - .docker/minio/data:/data
+    ports:
+      - "9000:9000"
+      - '9090:9090'
+    environment:
+      MINIO_ROOT_USER: ${STORAGE_USER}
+      MINIO_ROOT_PASSWORD: ${STORAGE_PASSWORD}
+      MINIO_ACCESS_KEY: ${STORAGE_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${STORAGE_SECRET_KEY}
+      MINIO_DEFAULT_BUCKETS: ${STORAGE_DEFAULT_BUCKETS}
+    restart: always
+    networks:
+      - joktec-network
+    command: server /data --console-address ":9090"
+
+# Docker Networks
+networks:
+  joktec-network:
+    name: joktec-network
+    driver: bridge
+
+# Docker Volumes
+volumes:
+  .docker:

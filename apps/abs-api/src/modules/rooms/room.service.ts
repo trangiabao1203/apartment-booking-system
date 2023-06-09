@@ -15,7 +15,7 @@ export class RoomService extends BaseService<Room, string> {
    * @param req
    * @param payload
    */
-  async findOne(id: string, req?: IBaseRequest<Room>, payload?: JwtPayload): Promise<Room> {
+  async findOne(id: string, req: IBaseRequest<Room> = {}, payload?: JwtPayload): Promise<Room> {
     const findKey = mongoose.Types.ObjectId.isValid(id) ? 'id' : 'code';
     const findValue = findKey === 'code' ? id.toUpperCase() : id;
     req.condition = { [findKey]: findValue };

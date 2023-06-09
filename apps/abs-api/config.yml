@@ -4,8 +4,8 @@ gateway:
     server: http://localhost:9010
 
 log:
-  level: debug
-  useFilter: true
+  level: info
+  useFilter: false
 
 bull:
   host: localhost

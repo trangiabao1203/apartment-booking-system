@@ -33,8 +33,6 @@ export class OrderConsumer {
     }
 
     const apartment = plainToInstance(Apartment, room.apartment);
-    await this.roomService.lockRoom(room.id);
-
     const [maxOrders, lastOrders] = await Promise.all([
       this.orderService.find({ sort: { sequence: 'desc' } }),
       this.orderService.find({
@@ -53,20 +51,25 @@ export class OrderConsumer {
       return job.moveToFailed({ message: 'LIMIT_10_ORDER' }, true);
     }
 
-    if (orderInput.bookingTime?.length) {
-      const now = moment();
-      const [startDate, endDate] = orderInput.bookingTime;
-      if (!startDate || !endDate) {
-        return job.moveToFailed({ message: 'BOOKING_TIME_REQUIRED' }, true);
-      }
+    const format = 'YYYY-MM-DD';
+    const now = moment().startOf('days');
+    const [startDate, endDate] = orderInput.bookingTime || [];
+    if (!startDate || !endDate) {
+      return job.moveToFailed({ message: 'BOOKING_TIME_REQUIRED' }, true);
+    }
 
-      if (moment(startDate).isSameOrBefore(now)) {
-        return job.moveToFailed({ message: 'START_DATE_MUST_AFTER_NOW' }, true);
-      }
+    const mStartDate = moment(startDate, format);
+    const mEndDate = moment(endDate, format);
+    if (!mStartDate.isValid() || !mEndDate.isValid()) {
+      return job.moveToFailed({ message: 'BOOKING_TIME_INVALID' }, true);
+    }
 
-      if (moment(startDate).isSameOrAfter(endDate)) {
-        return job.moveToFailed({ message: 'START_DATE_MUST_BEFORE_END_DATE' }, true);
-      }
+    if (mStartDate.isSameOrBefore(now, 'days')) {
+      return job.moveToFailed({ message: 'START_DATE_MUST_AFTER_NOW' }, true);
+    }
+
+    if (mStartDate.isSameOrAfter(mEndDate, 'days')) {
+      return job.moveToFailed({ message: 'START_DATE_MUST_BEFORE_END_DATE' }, true);
     }
 
     const maxOrder = head(maxOrders);
@@ -82,6 +85,7 @@ export class OrderConsumer {
       paymentMethod: orderInput.paymentMethod || PaymentMethod.COD,
       userId: orderInput.userId || payload.sub,
       status: OrderStatus.PENDING,
+      bookingTime: [mStartDate.startOf('days').toDate(), mEndDate.startOf('days').toDate()],
       timelines: [
         { title: 'The booking is waiting for confirmed.' },
         { title: 'The booking have been sent successfully.' },

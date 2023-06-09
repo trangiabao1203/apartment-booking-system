@@ -11,7 +11,7 @@ const props: IBaseControllerProps<Room> = {
   hooks: {
     create: [AdminInterceptor, RoomInterceptor],
     update: [AdminInterceptor, RoomInterceptor],
-    delete: [AdminInterceptor],
+    delete: [AdminInterceptor, RoomInterceptor],
   },
 };
 

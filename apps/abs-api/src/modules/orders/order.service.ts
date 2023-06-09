@@ -15,7 +15,7 @@ export class OrderService extends BaseService<Order, string> {
    * @param req
    * @param payload
    */
-  async findOne(id: string, req?: IBaseRequest<Order>, payload?: JwtPayload): Promise<Order> {
+  async findOne(id: string, req: IBaseRequest<Order> = {}, payload?: JwtPayload): Promise<Order> {
     const findKey = mongoose.Types.ObjectId.isValid(id) ? 'id' : 'code';
     const findValue = findKey === 'code' ? id.toUpperCase() : id;
     req.condition = { [findKey]: findValue };

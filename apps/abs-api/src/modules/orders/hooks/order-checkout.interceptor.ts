@@ -14,13 +14,13 @@ export class OrderCheckoutInterceptor implements NestInterceptor {
 
     const order = await this.orderService.findOne(req.params.id);
     if (!order) return next.handle();
-    if (order.status !== OrderStatus.COMPLETE) {
-      throw new BadRequestException('ORDER_CAN_NOT_CHECKOUT');
+    if (order.status !== OrderStatus.PROCESSING) {
+      throw new BadRequestException('ORDER_MUST_BE_CHECKIN_BEFORE');
     }
 
     const now = moment();
     req.body = {
-      status: OrderStatus.DONE,
+      status: OrderStatus.COMPLETE,
       checkoutTime: now.toDate(),
       $push: {
         timelines: {

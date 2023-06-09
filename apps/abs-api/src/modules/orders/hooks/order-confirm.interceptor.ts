@@ -1,5 +1,4 @@
 import { BadRequestException, CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@joktec/core';
-import { OrderRepo } from '../order.repo';
 import { Observable } from 'rxjs';
 import { OrderStatus } from '../models';
 import { OrderService } from '../order.service';
@@ -22,7 +21,7 @@ export class OrderConfirmInterceptor implements NestInterceptor {
       status: OrderStatus.CONFIRMED,
       $push: {
         timelines: {
-          $each: [{ title: `Yêu cầu được xác nhận bởi quản trị viên ${loggedUser.fullName}` }],
+          $each: [{ title: `The booking has been confirmed by admin ${loggedUser.fullName}` }],
           $position: 0,
         },
       },

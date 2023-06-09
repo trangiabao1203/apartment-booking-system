@@ -54,7 +54,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   async cancel(@Param('id') id: string, @Req() res: Request): Promise<Order> {
     const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
     if (order) {
-      await this.roomService.releaseRoom(order.id);
+      await this.roomService.releaseRoom(String(order.roomId));
     }
     return order;
   }
@@ -68,7 +68,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   async checkin(@Param('id') id: string, @Req() res: Request): Promise<Order> {
     const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
     if (order) {
-      await this.roomService.useRoom(order.id);
+      await this.roomService.useRoom(String(order.roomId));
     }
     return order;
   }
@@ -82,7 +82,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   async checkout(@Param('id') id: string, @Req() res: Request): Promise<Order> {
     const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
     if (order) {
-      await this.roomService.releaseRoom(order.id);
+      await this.roomService.releaseRoom(String(order.roomId));
     }
     return order;
   }
@@ -107,7 +107,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   async reject(@Param('id') id: string, @Req() res: Request): Promise<Order> {
     const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
     if (order) {
-      await this.roomService.releaseRoom(order.id);
+      await this.roomService.releaseRoom(String(order.roomId));
     }
     return order;
   }

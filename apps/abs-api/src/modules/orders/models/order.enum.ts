@@ -10,12 +10,10 @@ export enum PaymentMethod {
 }
 
 export enum OrderStatus {
-  DRAFT = 'draft',
   PENDING = 'pending',
   CONFIRMED = 'confirmed',
   PROCESSING = 'processing',
   COMPLETE = 'complete',
-  DONE = 'done',
   REJECT = 'reject',
   CANCEL = 'cancel',
   EXPIRED = 'expired',

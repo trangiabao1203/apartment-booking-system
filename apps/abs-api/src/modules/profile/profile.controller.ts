@@ -1,7 +1,6 @@
 import {
   ApiBearerAuth,
   ApiBody,
-  ApiExcludeEndpoint,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -75,7 +74,6 @@ export class ProfileController {
   @ApiOperation({ summary: `Revoke session` })
   @ApiBody({ type: UserRevokeDto })
   @ApiOkResponse({ type: UserLogoutDto })
-  @ApiExcludeEndpoint()
   @UsePipes(new BaseValidationPipe())
   async revoke(@Body() input: UserRevokeDto, @Req() res: Request): Promise<UserLogoutDto> {
     return this.profileService.revokedOther(input.tokenIds, res['payload']);

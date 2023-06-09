@@ -15,8 +15,8 @@ export class OrderCheckinInterceptor implements NestInterceptor {
 
     const order = await this.orderService.findOne(req.params.id);
     if (!order) return next.handle();
-    if (order.status !== OrderStatus.PROCESSING) {
-      throw new BadRequestException('ORDER_CAN_NOT_CHECKIN');
+    if (order.status !== OrderStatus.CONFIRMED) {
+      throw new BadRequestException('ORDER_HAVE_NOT_CONFIRMED');
     }
 
     const now = moment();

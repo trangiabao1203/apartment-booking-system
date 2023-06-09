@@ -71,10 +71,8 @@ export class Order extends MongoSchema {
   contact!: OrderContact;
 
   @prop({ type: Date, required: true }, PropType.ARRAY)
-  @Type(() => Date)
   @IsNotEmpty({ message: 'BOOKING_TIME_REQUIRED' })
   @IsArray({ message: 'BOOKING_TIME_INVALID' })
-  @IsDate({ message: 'BOOKING_TIME_INVALID', each: true })
   @ApiProperty({ isArray: true })
   bookingTime!: Date[];
 

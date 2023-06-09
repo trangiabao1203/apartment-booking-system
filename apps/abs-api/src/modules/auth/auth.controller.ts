@@ -1,6 +1,5 @@
 import {
   ApiBody,
-  ApiExcludeEndpoint,
   ApiOkResponse,
   ApiTags,
   BaseValidationPipe,
@@ -97,7 +96,6 @@ export class AuthController {
   @Post('/refresh')
   @ApiBody({ type: RefreshTokenDto })
   @ApiOkResponse({ type: TokeResponseDto })
-  @ApiExcludeEndpoint()
   async refresh(@Body() input: RefreshTokenDto, @Req() req: Request): Promise<TokeResponseDto> {
     const clientInfo: ClientInfo = req['clientInfo'];
     return this.authService.refresh(input, clientInfo);

@@ -58,6 +58,12 @@ export class Room extends MongoSchema {
   @ApiProperty()
   roomNumber!: number;
 
+  @prop({ required: true })
+  @IsNotEmpty({ message: 'SLOT_REQUIRED' })
+  @IsPositive({ message: 'SLOT_INVALID' })
+  @ApiProperty()
+  slot!: number;
+
   @prop({ default: '' })
   @IsOptional()
   @IsCdnUrl({ message: 'LINK_INVALID' })

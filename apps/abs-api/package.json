@@ -37,12 +37,10 @@
     "seed:refresh": "node dist/app.seeder --refresh"
   },
   "dependencies": {
-    "@joktec/core": "^0.0.63",
-    "@joktec/http": "^0.0.62",
-    "@joktec/mongo": "^0.0.81",
-    "@joktec/storage": "^0.0.63",
-    "@nestjs/bull": "^0.6.3",
-    "bull": "^4.10.4",
+    "@joktec/core": "^0.0.64",
+    "@joktec/http": "^0.0.63",
+    "@joktec/mongo": "^0.0.82",
+    "@joktec/storage": "^0.0.64",
     "dot-object": "^2.1.4",
     "gravatar": "^1.8.2",
     "lodash": "^4.17.21",
@@ -51,7 +49,7 @@
     "url-parse": "^1.5.10"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "^7.5.0",
     "@types/dot-object": "^2.1.2",
     "@types/gravatar": "^1.8.3",
     "@types/lodash": "^4.14.194",

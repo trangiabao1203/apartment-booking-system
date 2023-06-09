@@ -1,4 +1,4 @@
-import { Module } from '@joktec/core';
+import { BullModule, Module } from '@joktec/core';
 import { OrderController } from './order.controller';
 import { OrderRepo } from './order.repo';
 import { OrderService } from './order.service';
@@ -9,13 +9,11 @@ import {
   OrderConfirmInterceptor,
   OrderEditableInterceptor,
   OrderRejectInterceptor,
-  OrderRoomInterceptor,
   OrderSubmittedInterceptor,
 } from './hooks';
 import { ApartmentModule } from '../apartments';
 import { RoomModule } from '../rooms';
-import { BullModule } from '@nestjs/bull';
-import { OrderProcessor } from './order.processor';
+import { OrderConsumer } from './order.consumer';
 
 @Module({
   controllers: [OrderController],
@@ -23,8 +21,7 @@ import { OrderProcessor } from './order.processor';
   providers: [
     OrderRepo,
     OrderService,
-    OrderProcessor,
-    OrderRoomInterceptor,
+    OrderConsumer,
     OrderSubmittedInterceptor,
     OrderEditableInterceptor,
     OrderCancelInterceptor,

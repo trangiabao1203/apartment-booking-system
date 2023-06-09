@@ -1339,29 +1339,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@4.12.2", "@bull-board/api@^4.6.1":
-  version "4.12.2"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-4.12.2.tgz#d025de77ccb1b454c583184b27bc939d2e845838"
-  integrity sha512-efF8K1pvfEEft2ELQwCBe/a225vHufCjM2hfcyvmIG/SUX6TlKQFUFZ1+KV0wenD9wxvUVb5wxUu6on+HrZiVg==
+"@bull-board/api@5.2.1", "@bull-board/api@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-5.2.1.tgz#cda18d20c0b2a1ddc79d96f2313bb9043233d961"
+  integrity sha512-+WRK5pkjly8bVgedBY4f0zzuywFb9bbd2ABv8unvV5F9dWKc1+8W76xAycfvMQNshbWCjAJISWsc5Y/13xcT3Q==
   dependencies:
     redis-info "^3.0.8"
 
-"@bull-board/express@^4.6.1":
-  version "4.12.2"
-  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-4.12.2.tgz#7ba43d079497dbc20d7085ae5ca658fb12bda1bf"
-  integrity sha512-Y/pzCtQoxvLyioiNYLKKgxslccV+7dyTy4qCGAXyUbAuOaav+U4tbfWNcZYaMSkr/1gg0m/6S/qf+xn2vAsDkQ==
+"@bull-board/express@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-5.2.1.tgz#90ffcc5bb6c3ef4db340c89f4d1b52c4c0d8e479"
+  integrity sha512-fW6FHka4EvQAqydGlDky6FYcf98HT2vjXWn/qhVbt+X7JoFB0WkMbCthoQy96Y7ac1+Cd8PbvTHYUktSArfSPg==
   dependencies:
-    "@bull-board/api" "4.12.2"
-    "@bull-board/ui" "4.12.2"
+    "@bull-board/api" "5.2.1"
+    "@bull-board/ui" "5.2.1"
     ejs "3.1.7"
     express "4.17.3"
 
-"@bull-board/ui@4.12.2":
-  version "4.12.2"
-  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-4.12.2.tgz#0002ca3b095109bc83b78e186c8c6c87f65f68b1"
-  integrity sha512-jB/OOEhg+DUL6ssmtQYTK+iYd3iy68bbozOp+q2xVUC4V7zeFmYF25sIApYFTNfbjuUMesAVOiX4u0gNEo/J7w==
+"@bull-board/ui@5.2.1", "@bull-board/ui@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-5.2.1.tgz#40bc4e4553d0e9bedb95c1292c8cf4e1fc56e207"
+  integrity sha512-G5gazsvCXm8J2cVS4QEKctGLoXhh9GOFs8fooXEWGd5AAnJZrjGcvI3ICAa4lx8taxlLG0tyF9y3R39iwzccuw==
   dependencies:
-    "@bull-board/api" "4.12.2"
+    "@bull-board/api" "5.2.1"
 
 "@colors/colors@1.5.0":
   version "1.5.0"
@@ -1577,10 +1577,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.42.0.tgz#484a1d638de2911e6f5a30c12f49c7e4a3270fb6"
   integrity sha512-6SWlXpWU5AvId8Ac7zjzmIOqMOba/JWY8XZ4A7q7Gn1Vlfg/SFFIlrtHXt9nPn4op9ZPAkl91Jao+QQv3r/ukw==
 
-"@faker-js/faker@^8.0.2":
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-8.0.2.tgz#bab698c5d3da9c52744e966e0e3eedb6c8b05c37"
-  integrity sha512-Uo3pGspElQW91PCvKSIAXoEgAUlRnH29sX2/p89kg7sP1m2PzCufHINd0FhTXQf6DYGiUlVncdSPa2F9wxed2A==
+"@faker-js/faker@^7.5.0":
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-7.6.0.tgz#9ea331766084288634a9247fcd8b84f16ff4ba07"
+  integrity sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==
 
 "@gar/promisify@^1.1.3":
   version "1.1.3"
@@ -1964,14 +1964,16 @@
     "@types/yargs" "^17.0.8"
     chalk "^4.0.0"
 
-"@joktec/core@0.0.63", "@joktec/core@^0.0.63":
-  version "0.0.63"
-  resolved "https://registry.yarnpkg.com/@joktec/core/-/core-0.0.63.tgz#3d752c922fecee800c9ecbb8bff5739a09a35831"
-  integrity sha512-E9gvp0gjMh/m2RhzJ5brrRj7p4Yn0iXcFnx/+sHjehkZHzZTwyRam9ScbmbTw5fQZ9YMRcVCEmLGzXQHKK1q0Q==
+"@joktec/core@0.0.64", "@joktec/core@^0.0.64":
+  version "0.0.64"
+  resolved "https://registry.yarnpkg.com/@joktec/core/-/core-0.0.64.tgz#596d77e66bebdba7c15418a2868e49300bd6da2f"
+  integrity sha512-UvS8of289dxLNmLE2oiQfdL94vRjkKhI0KObIK+xOuGtkTYlj5iWXKYzGoP+ON2dCSQLY5BMdHVORKPygwdh1g==
   dependencies:
-    "@bull-board/api" "^4.6.1"
-    "@bull-board/express" "^4.6.1"
+    "@bull-board/api" "^5.2.1"
+    "@bull-board/express" "^5.2.1"
+    "@bull-board/ui" "^5.2.1"
     "@grpc/proto-loader" "^0.7.3"
+    "@nestjs/bull" "^0.6.3"
     "@nestjs/common" "^9.4.0"
     "@nestjs/config" "^2.3.1"
     "@nestjs/core" "^9.4.0"
@@ -1990,7 +1992,7 @@
     async-retry "^1.3.3"
     backoff "^2.5.0"
     bcryptjs "^2.4.3"
-    bull "^4.10.1"
+    bull "^4.10.4"
     class-transformer "^0.5.1"
     class-validator "^0.14.0"
     csurf "^1.11.0"
@@ -2028,12 +2030,12 @@
     type-cacheable "^4.1.2"
     uuid "^9.0.0"
 
-"@joktec/http@^0.0.62":
-  version "0.0.62"
-  resolved "https://registry.yarnpkg.com/@joktec/http/-/http-0.0.62.tgz#1b796720bb6070f12d2519254caa7d6a0f58142e"
-  integrity sha512-l1lnhI014pYPYmVZwlj+kwg/8VJu8Ti6d8gdq7vQiJaE/r6PUx0iMzoFeOMzmZvBhxfJ73JHNMa5+DQ619+7mw==
+"@joktec/http@^0.0.63":
+  version "0.0.63"
+  resolved "https://registry.yarnpkg.com/@joktec/http/-/http-0.0.63.tgz#f565e9b0eef51283f69ab5c36395b5b1e439314b"
+  integrity sha512-893zgymEbx7BWsadvwh4inYbPEwP+GO1KLC/RT7m/8cCELChiFuBuj1NQvHGO8W70wL0cCcGk5f0ig8FwpSSRw==
   dependencies:
-    "@joktec/core" "0.0.63"
+    "@joktec/core" "0.0.64"
     axios "^1.3.5"
     form-data "^4.0.0"
     http-proxy-agent "^5.0.0"
@@ -2046,12 +2048,12 @@
     rxjs "^7.2.0"
     valid-url "^1.0.9"
 
-"@joktec/mongo@^0.0.81":
-  version "0.0.81"
-  resolved "https://registry.yarnpkg.com/@joktec/mongo/-/mongo-0.0.81.tgz#58b11aee3b5c7e76313c6372df9b430663ce4868"
-  integrity sha512-d6DCQYlXSjDPNZKvAKYOIw4BtPXRwt6i1eNG8tXTMPK10PdrmUkRTegGGBSzxkqBapKpzOaaNnivfdg3W/GZXw==
+"@joktec/mongo@^0.0.82":
+  version "0.0.82"
+  resolved "https://registry.yarnpkg.com/@joktec/mongo/-/mongo-0.0.82.tgz#87d38a63ce1f9a0f1214c52deef479298ff45121"
+  integrity sha512-OwDuJMvatXPJ25t5LojVS8r6CIZb6WoAJd4JJHKallw2gclDO6BXZz/3NPfZnKENnMia7zW5q/m0kd7GyWXjPg==
   dependencies:
-    "@joktec/core" "0.0.63"
+    "@joktec/core" "0.0.64"
     "@typegoose/typegoose" "^10.3.2"
     dot-object "^2.1.4"
     lodash "^4.17.21"
@@ -2059,14 +2061,14 @@
     mongoose "^6.10.0"
     mongoose-beautiful-unique-validation "^7.1.1"
 
-"@joktec/storage@^0.0.63":
-  version "0.0.63"
-  resolved "https://registry.yarnpkg.com/@joktec/storage/-/storage-0.0.63.tgz#08a9fbf5a97265eb8a6e0b656c15850cfd99543f"
-  integrity sha512-FOwH+oN9nnYFHinN766A954m9ClPOS1OwA6Ycf/oOTrLnqkdI+ULWQG4CZa5z9mWQc3ipxOVbE9UJBYA/JCcKw==
+"@joktec/storage@^0.0.64":
+  version "0.0.64"
+  resolved "https://registry.yarnpkg.com/@joktec/storage/-/storage-0.0.64.tgz#d051aa96124d7b4cd91ddf0a5f17c631373c59f2"
+  integrity sha512-CQ2FNlaqpx3FoF7bD0hcR/7kBPaJVFIKu6YDarlaVK+JbkdXVtkjVZe48bor3y8j1yrdbNvw+BbSPoomMXocLw==
   dependencies:
     "@aws-sdk/client-s3" "^3.321.1"
     "@aws-sdk/s3-request-presigner" "^3.321.1"
-    "@joktec/core" "0.0.63"
+    "@joktec/core" "0.0.64"
     image-downloader "^4.3.0"
     lodash "^4.17.21"
     merge-deep "^3.0.3"
@@ -4640,7 +4642,7 @@ builtins@^5.0.0:
   dependencies:
     semver "^7.0.0"
 
-bull@^4.10.1, bull@^4.10.4:
+bull@^4.10.4:
   version "4.10.4"
   resolved "https://registry.yarnpkg.com/bull/-/bull-4.10.4.tgz#db39ee0c3bfbe3b76f1f35db800501de5bba4f84"
   integrity sha512-o9m/7HjS/Or3vqRd59evBlWCXd9Lp+ALppKseoSKHaykK46SmRjAilX98PgmOz1yeVaurt8D5UtvEt4bUjM3eA==

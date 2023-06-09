@@ -2,6 +2,7 @@ import {
   APP_FILTER,
   APP_GUARD,
   APP_INTERCEPTOR,
+  BullModule,
   ConfigModule,
   ConfigService,
   CoreModule,
@@ -16,7 +17,6 @@ import {
 import { MongoModule } from '@joktec/mongo';
 import { StorageModule } from '@joktec/storage';
 import { HttpModule } from '@joktec/http';
-import { BullModule } from '@nestjs/bull';
 import { AuthMiddleware, HttpExceptionFilter, RoleGuard } from './base';
 import { OtpModule } from './modules/otpLogs';
 import { SessionController, SessionModule } from './modules/sessions';

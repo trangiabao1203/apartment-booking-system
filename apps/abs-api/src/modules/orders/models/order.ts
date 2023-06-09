@@ -14,7 +14,6 @@ import { OrderStatus, OrderType, PaymentMethod } from './order.enum';
 import { OrderContact } from './order-contact';
 import { User } from '../../users';
 import { IsCdnUrl, ValidateGroup } from '../../../utils';
-import { Apartment } from '../../apartments';
 import { OrderTimeline } from './order-timeline';
 import { Room } from '../../rooms';
 
@@ -23,7 +22,7 @@ import { Room } from '../../rooms';
 export class Order extends MongoSchema {
   @prop({ required: true, trim: true, uppercase: true, immutable: true })
   @IsOptional()
-  @ApiProperty({ example: 'LFTCCCD000007' })
+  @ApiProperty({ example: 'RS.R000001' })
   code!: string;
 
   @prop({ required: true })
@@ -33,7 +32,7 @@ export class Order extends MongoSchema {
 
   @prop({ required: true })
   @IsOptional()
-  @ApiProperty({ example: 'Passport' })
+  @ApiProperty({ example: 'Booking no #RS.R000001' })
   title!: string;
 
   @prop({ type: String, default: '' })
@@ -64,14 +63,6 @@ export class Order extends MongoSchema {
   @ApiPropertyOptional({ example: 'https://example.com/image.png' })
   thumbnail?: string;
 
-  @prop({ type: String, default: [] }, PropType.ARRAY)
-  @Type(() => String)
-  @IsOptional()
-  @IsArray()
-  @IsCdnUrl({ message: 'LINK_INVALID', each: true })
-  @ApiProperty({ type: String, isArray: true })
-  gallery?: string[];
-
   @prop({ required: true, type: OrderContact })
   @Type(() => OrderContact)
   @IsNotEmpty({ message: 'ORDER_CONTACT_REQUIRED' })
@@ -89,14 +80,14 @@ export class Order extends MongoSchema {
 
   @prop({ type: Date, default: null })
   @Type(() => Date)
-  @IsOptional({ message: 'CHECKIN_TIME_REQUIRED' })
+  @IsOptional()
   @IsDate({ message: 'CHECKIN_TIME_INVALID' })
   @ApiPropertyOptional()
   checkinTime?: Date;
 
   @prop({ type: Date, default: null })
   @Type(() => Date)
-  @IsOptional({ message: 'CHECKOUT_TIME_REQUIRED' })
+  @IsOptional()
   @IsDate({ message: 'CHECKOUT_TIME_INVALID' })
   @ApiPropertyOptional()
   checkoutTime?: Date;
@@ -150,8 +141,12 @@ export class Order extends MongoSchema {
 
   // Virtual
   @prop({ ref: () => Room, foreignField: '_id', localField: 'roomId', justOne: true })
+  @Type(() => Room)
+  @ApiPropertyOptional({ type: Room })
   room?: Ref<Room>;
 
   @prop({ ref: () => User, foreignField: '_id', localField: 'userId', justOne: true })
+  @Type(() => User)
+  @ApiPropertyOptional({ type: User })
   user?: Ref<User>;
 }

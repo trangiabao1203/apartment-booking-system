@@ -1,5 +1,4 @@
 export * from './order-editable.interceptor';
-export * from './order-room.interceptor';
 export * from './order-submitted.interceptor';
 export * from './order-cancel.interceptor';
 export * from './order-confirm.interceptor';

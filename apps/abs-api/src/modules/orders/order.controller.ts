@@ -23,7 +23,6 @@ import {
   OrderConfirmInterceptor,
   OrderEditableInterceptor,
   OrderRejectInterceptor,
-  OrderRoomInterceptor,
   OrderSubmittedInterceptor,
 } from './hooks';
 import { Roles } from '../../base';
@@ -34,7 +33,7 @@ const props: IBaseControllerProps<Order> = {
   dto: Order,
   excludes: [ControllerExclude.DELETE],
   hooks: {
-    create: [OrderRoomInterceptor, OrderSubmittedInterceptor],
+    create: [OrderSubmittedInterceptor],
     update: [OrderEditableInterceptor],
   },
 };
@@ -88,7 +87,6 @@ export class OrderController extends BaseController<Order, string>(props) {
     return order;
   }
 
-  // ---------
   @Patch('/:id/confirm')
   @ApiOperation({ summary: `Admin confirm` })
   @ApiOkResponse({ type: Order })

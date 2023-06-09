@@ -39,8 +39,11 @@ export class ApartmentInterceptor implements NestInterceptor {
     if (req.method === 'DELETE') {
       const apartment = await this.apartmentRepo.findOne({
         condition: { _id: req.params.id },
-        populate: { children: '*' },
+        populate: { children: '*', rooms: '*' },
       });
+      if (apartment?.rooms?.length) {
+        throw new ValidateException({ code: ['APARTMENT_HAS_ROOMS'] });
+      }
       if (apartment?.children?.length) {
         throw new ValidateException({ code: ['APARTMENT_HAS_CHILDREN'] });
       }

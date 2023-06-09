@@ -45,8 +45,6 @@ export class AuthController {
     if (otp.status === OTPStatus.ACTIVATED) {
       // TODO: Implement send OTP in here
       this.logger.info('Ma xac thuc cua ban la: %s', otp.publicCode);
-      // const msg = `Ma xac thuc cua ban la: ${otp.publicCode}`;
-      // await this.smsService.send(otp.phone, msg);
     }
 
     return {

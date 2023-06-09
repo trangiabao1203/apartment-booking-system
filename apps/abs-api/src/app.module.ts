@@ -76,6 +76,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
+      .exclude(ApartmentController.excludeRoute(), RoomController.excludeRoute(), SettingController.excludeRoute())
       .forRoutes(
         UserController,
         ProfileController,

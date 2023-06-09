@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsPositive,
+  IsString,
   Transform,
   Type,
 } from '@joktec/core';
@@ -89,18 +90,19 @@ export class Room extends MongoSchema {
   @ApiProperty()
   price!: number;
 
-  @prop({ ref: () => Apartment, default: null })
+  @prop({ required: true, ref: () => Apartment })
   @Type(() => String)
-  @IsOptional()
-  @ApiPropertyOptional({ type: String })
-  apartmentId?: Ref<Apartment, string>;
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  apartmentId!: Ref<Apartment, string>;
 
-  @prop({ ref: () => Setting, default: [] })
+  @prop({ required: true, ref: () => Setting, default: [] })
   @Type(() => String)
   @IsOptional()
   @IsArray()
+  @IsString({ each: true })
   @ApiPropertyOptional({ type: String, isArray: true })
-  settingIds?: Ref<Setting, string>[];
+  settingIds!: Ref<Setting, string>[];
 
   @prop({ required: true, enum: RoomStatus })
   @IsNotEmpty({ message: 'ROOM_STATUS_REQUIRED' })

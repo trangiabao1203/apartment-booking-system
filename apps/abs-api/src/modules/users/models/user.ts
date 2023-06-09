@@ -28,7 +28,7 @@ export class User extends MongoSchema {
   @prop({ required: true })
   @IsNotEmpty({ message: 'FULL_NAME_REQUIRED' })
   @ApiProperty({ example: 'John Doe' })
-  @Factory(faker => faker.person.fullName())
+  @Factory(faker => faker.name.fullName())
   fullName!: string;
 
   @prop({ required: true, validate: (v: string) => isMobilePhone(v, 'vi-VN') })
@@ -81,7 +81,7 @@ export class User extends MongoSchema {
   @IsOptional()
   @IsDate({ message: 'BIRTHDAY_INVALID' })
   @ApiPropertyOptional()
-  @Factory(faker => faker.date.anytime())
+  @Factory(faker => faker.date.birthdate())
   birthday?: Date;
 
   @prop({ type: Address, default: new Address() })

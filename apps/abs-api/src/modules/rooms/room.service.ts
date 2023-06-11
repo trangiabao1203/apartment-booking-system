@@ -1,6 +1,6 @@
 import { BaseService, IBaseRequest, Injectable, JwtPayload } from '@joktec/core';
 import { mongoose } from '@joktec/mongo';
-import { Room, RoomStatus } from './models';
+import { Room } from './models';
 import { RoomRepo } from './room.repo';
 
 @Injectable()
@@ -20,20 +20,5 @@ export class RoomService extends BaseService<Room, string> {
     const findValue = findKey === 'code' ? id.toUpperCase() : id;
     req.condition = { [findKey]: findValue };
     return this.roomRepo.findOne(req);
-  }
-
-  async lockRoom(id: string): Promise<Room> {
-    const condition = { id };
-    return this.roomRepo.update(condition, { status: RoomStatus.PENDING });
-  }
-
-  async useRoom(id: string): Promise<Room> {
-    const condition = { id };
-    return this.roomRepo.update(condition, { status: RoomStatus.IN_STOCK });
-  }
-
-  async releaseRoom(id: string): Promise<Room> {
-    const condition = { id };
-    return this.roomRepo.update(condition, { status: RoomStatus.ACTIVATED });
   }
 }

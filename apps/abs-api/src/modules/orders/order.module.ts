@@ -11,13 +11,12 @@ import {
   OrderRejectInterceptor,
   OrderSubmittedInterceptor,
 } from './hooks';
-import { ApartmentModule } from '../apartments';
 import { RoomModule } from '../rooms';
 import { OrderConsumer } from './order.consumer';
 
 @Module({
   controllers: [OrderController],
-  imports: [BullModule.registerQueue({ name: 'order' }), ApartmentModule, RoomModule],
+  imports: [BullModule.registerQueue({ name: 'order' }), RoomModule],
   providers: [
     OrderRepo,
     OrderService,
@@ -30,6 +29,6 @@ import { OrderConsumer } from './order.consumer';
     OrderConfirmInterceptor,
     OrderRejectInterceptor,
   ],
-  exports: [OrderService],
+  exports: [OrderService, OrderRepo],
 })
 export class OrderModule {}

@@ -6,7 +6,5 @@ export enum RoomType {
 
 export enum RoomStatus {
   ACTIVATED = 'activated',
-  PENDING = 'pending',
-  IN_STOCK = 'in_stock',
   DISABLED = 'disabled',
 }

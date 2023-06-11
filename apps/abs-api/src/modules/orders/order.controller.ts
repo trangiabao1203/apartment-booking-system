@@ -27,7 +27,6 @@ import {
 } from './hooks';
 import { Roles } from '../../base';
 import { UserRole } from '../users';
-import { RoomService } from '../rooms';
 
 const props: IBaseControllerProps<Order> = {
   dto: Order,
@@ -40,7 +39,7 @@ const props: IBaseControllerProps<Order> = {
 
 @Controller('orders')
 export class OrderController extends BaseController<Order, string>(props) {
-  constructor(protected orderService: OrderService, private roomService: RoomService) {
+  constructor(protected orderService: OrderService) {
     super(orderService);
   }
 
@@ -52,11 +51,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   @Roles(UserRole.USER)
   @UseInterceptors(OrderEditableInterceptor, OrderCancelInterceptor)
   async cancel(@Param('id') id: string, @Req() res: Request): Promise<Order> {
-    const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
-    if (order) {
-      await this.roomService.releaseRoom(String(order.roomId));
-    }
-    return order;
+    return this.orderService.update(id, res.body, res.payload as JwtPayload);
   }
 
   @Patch('/:id/checkin')
@@ -66,11 +61,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   @Roles(UserRole.USER)
   @UseInterceptors(OrderCheckinInterceptor)
   async checkin(@Param('id') id: string, @Req() res: Request): Promise<Order> {
-    const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
-    if (order) {
-      await this.roomService.useRoom(String(order.roomId));
-    }
-    return order;
+    return this.orderService.update(id, res.body, res.payload as JwtPayload);
   }
 
   @Patch('/:id/checkout')
@@ -80,11 +71,7 @@ export class OrderController extends BaseController<Order, string>(props) {
   @Roles(UserRole.USER)
   @UseInterceptors(OrderCheckoutInterceptor)
   async checkout(@Param('id') id: string, @Req() res: Request): Promise<Order> {
-    const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
-    if (order) {
-      await this.roomService.releaseRoom(String(order.roomId));
-    }
-    return order;
+    return this.orderService.update(id, res.body, res.payload as JwtPayload);
   }
 
   @Patch('/:id/confirm')
@@ -105,10 +92,6 @@ export class OrderController extends BaseController<Order, string>(props) {
   @Roles(UserRole.ADMIN)
   @UseInterceptors(OrderRejectInterceptor)
   async reject(@Param('id') id: string, @Req() res: Request): Promise<Order> {
-    const order = await this.orderService.update(id, res.body, res.payload as JwtPayload);
-    if (order) {
-      await this.roomService.releaseRoom(String(order.roomId));
-    }
-    return order;
+    return this.orderService.update(id, res.body, res.payload as JwtPayload);
   }
 }

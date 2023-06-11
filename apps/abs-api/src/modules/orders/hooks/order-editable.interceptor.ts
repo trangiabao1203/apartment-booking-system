@@ -1,8 +1,8 @@
 import { BadRequestException, CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@joktec/core';
 import { Observable } from 'rxjs';
 import { OrderStatus } from '../models';
-import moment from 'moment';
 import { OrderService } from '../order.service';
+import moment from 'moment';
 
 @Injectable()
 export class OrderEditableInterceptor implements NestInterceptor {

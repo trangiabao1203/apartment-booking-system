@@ -72,6 +72,11 @@ export class OrderConsumer {
       return job.moveToFailed({ message: 'START_DATE_MUST_BEFORE_END_DATE' }, true);
     }
 
+    const overlappingOrders = await this.orderService.findOverlappingOrders(orderInput.bookingTime, room._id);
+    if (!overlappingOrders.length) {
+      return job.moveToFailed({ message: 'ROOM_NOT_AVAILABLE_IN_TIME_FRAME' }, true);
+    }
+
     const maxOrder = head(maxOrders);
     const sequence: number = toInt(maxOrder?.sequence, 0) + 1;
     const code = `${apartment.code}.${room.code}${sequence.toString().padStart(6, '0')}`;

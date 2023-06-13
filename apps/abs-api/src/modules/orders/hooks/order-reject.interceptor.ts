@@ -1,12 +1,19 @@
 import { BadRequestException, CallHandler, ExecutionContext, Injectable, isEmpty, NestInterceptor } from '@joktec/core';
 import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { OrderStatus } from '../models';
 import { OrderService } from '../order.service';
+import { RoomService } from '../../rooms';
 
 @Injectable()
 export class OrderRejectInterceptor implements NestInterceptor {
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private roomService: RoomService) {}
 
+  /**
+   * Verify status of current other, if pass validate and update success. Remove the schedule of rooms
+   * @param context
+   * @param next
+   */
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const req = context.switchToHttp().getRequest();
     const loggedUser = req.loggedUser;
@@ -31,6 +38,14 @@ export class OrderRejectInterceptor implements NestInterceptor {
       },
     };
 
-    return next.handle();
+    return next.handle().pipe(
+      catchError(err => {
+        throw err;
+      }),
+      map(data => {
+        this.roomService.removeSchedule(req.params.id);
+        return data;
+      }),
+    );
   }
 }

@@ -2,7 +2,7 @@ import { BadRequestException, CallHandler, ExecutionContext, Injectable, NestInt
 import { Observable } from 'rxjs';
 import { OrderStatus } from '../models';
 import { OrderService } from '../order.service';
-import moment from 'moment/moment';
+import moment from 'moment';
 
 @Injectable()
 export class OrderCheckoutInterceptor implements NestInterceptor {

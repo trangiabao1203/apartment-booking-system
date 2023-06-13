@@ -2,6 +2,7 @@ import {
   BadRequestException,
   CallHandler,
   ExecutionContext,
+  IBaseRequest,
   ICondition,
   Injectable,
   NestInterceptor,
@@ -10,6 +11,7 @@ import {
 import { Observable } from 'rxjs';
 import { RoomRepo } from '../room.repo';
 import { Room, RoomStatus } from '../models';
+import moment from 'moment';
 
 @Injectable()
 export class RoomInterceptor implements NestInterceptor {
@@ -18,6 +20,23 @@ export class RoomInterceptor implements NestInterceptor {
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const req = context.switchToHttp().getRequest();
     const { code } = req.body;
+
+    if (req.method === 'GET') {
+      if (req.query.fromDate) {
+        const fromDate = moment(req.query.fromDate).startOf('days').toDate();
+        const toDate = moment(req.query.toDate || req.query.fromDate)
+          .endOf('days')
+          .toDate();
+
+        const query: IBaseRequest<any> = req.query;
+        if (!query.condition.$or) {
+          query.condition.$or = [
+            { schedules: { $size: 0 } },
+            { $and: [{ 'schedules.fromDate': { $gte: toDate } }, { 'schedules.toDate': { $lte: fromDate } }] },
+          ];
+        }
+      }
+    }
 
     if (req.method === 'POST' && code) {
       const condition: ICondition<Room> = { code };

@@ -9,6 +9,7 @@ import {
   IsString,
   Transform,
   Type,
+  ValidateNested,
 } from '@joktec/core';
 import { index, modelOptions, MongoSchema, prop, PropType, Ref } from '@joktec/mongo';
 import { RoomStatus, RoomType } from './room.enum';
@@ -16,6 +17,7 @@ import { IsCdnUrl } from '../../../utils';
 import { Apartment } from '../../apartments';
 import { Setting } from '../../settings';
 import { orderBy } from 'lodash';
+import { RoomSchedule } from './room-schedule';
 
 @index({ title: 'text', subhead: 'text' })
 @modelOptions({ schemaOptions: { collection: 'rooms' } })
@@ -102,13 +104,20 @@ export class Room extends MongoSchema {
   @ApiProperty({ type: String })
   apartmentId!: Ref<Apartment, string>;
 
-  @prop({ required: true, ref: () => Setting, default: [] })
+  @prop({ required: true, ref: () => Setting, default: [] }, PropType.ARRAY)
   @Type(() => String)
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @ApiPropertyOptional({ type: String, isArray: true })
   settingIds!: Ref<Setting, string>[];
+
+  @prop({ required: true, default: [] }, PropType.ARRAY)
+  @Type(() => RoomSchedule)
+  @IsArray()
+  @ValidateNested({ each: true })
+  @ApiPropertyOptional({ type: RoomSchedule, isArray: true })
+  schedules!: RoomSchedule[];
 
   @prop({ required: true, enum: RoomStatus })
   @IsNotEmpty({ message: 'ROOM_STATUS_REQUIRED' })

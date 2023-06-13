@@ -9,6 +9,7 @@ const props: IBaseControllerProps<Room> = {
   dto: Room,
   useGuard: { findAll: false, findOne: false, create: true, update: true, delete: true },
   hooks: {
+    findAll: [RoomInterceptor],
     create: [AdminInterceptor, RoomInterceptor],
     update: [AdminInterceptor, RoomInterceptor],
     delete: [AdminInterceptor, RoomInterceptor],
